@@ -26,8 +26,8 @@ Here's an example of the "taxonomic kingdoms of life"::
     Living Organisms -> Prokaryotic -> Eubacteria -> ...
 
 Taxonomies can be quite large, sometimes in the tens of thousands
-(10,000+). And in sites with multiple languages, each title – or
-*caption* – must appear in translation.
+(10,000+). And in sites with multiple languages, each title - or
+*caption* - must appear in translation.
 
 Note that the selection of a term in the hierarchy implies the
 selection of all its parents. In the example above this means that if

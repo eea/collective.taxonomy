@@ -240,7 +240,7 @@ Contributors
 
 - Maurits van Rees <maurits@vanrees.org>
 
-- Cédric Messiant <cedric.messiant@gmail.com>
+- Cedric Messiant <cedric.messiant@gmail.com>
 
 
 Existing work

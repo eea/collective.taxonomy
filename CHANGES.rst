@@ -1,19 +1,38 @@
 Changes
 =======
 
-2.1.0 (unreleased)
+2.0.2 (unreleased)
 ------------------
 
-New features:
+- Nothing changed yet.
 
-- add ``moveUp/Down`` functionality to widget
+
+2.0.1 (2020-07-04)
+------------------
+
+- Add a tutorial
+  [rodfersou]
+
+- Add Cypress test
+  [rodfersou]
+
+- Fix translating msgid when portal language is not found in taxonomy
+  [petschki, rodfersou]
+
+- Fix JavaScript in ``input_widget.pt`` which had python comments
   [petschki]
 
-Bug Fixes:
+- Add Transifex.net service integration to manage the translation process
+  [macagua]
 
-- simplify utility.py to always ensure items order. imported data is always
-  appended at the end of existing taxonomies
-  [petschki]
+- Added Spanish translation
+  [macagua]
+
+- Updated the i18n support
+  [macagua]
+
+- Added license documentation of package
+  [macagua]
 
 
 2.0.0 (2019-11-25)

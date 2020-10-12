@@ -64,22 +64,21 @@ function swapFields(a, b)
   }
 
 // move selected item in "to" selection one up
-function moveUp(name)
-  {
+function moveUp(name) {
   // shortcuts for selection field
   var toSel = document.getElementById(name+"-to");
 
-  if (toSel.selectedIndex == -1)
+  if (toSel.selectedIndex == -1) {
       selectionError();
-  else if (toSel.options[0].selected)
+  } else if (toSel.options[0].selected) {
       alert("Cannot move further up!");
-  else for (var i = 0; i < toSel.length; i++)
-    if (toSel.options[i].selected)
-      {
-      swapFields(toSel.options[i-1], toSel.options[i]);
-      copyDataForSubmit(name);
+  } else for (var i = 0; i < toSel.length; i++) {
+      if (toSel.options[i].selected) {
+        swapFields(toSel.options[i-1], toSel.options[i]);
+        copyDataForSubmit(name);
       }
   }
+}
 
 // move selected item in "to" selection one down
 function moveDown(name)
@@ -136,8 +135,9 @@ function copyDataForSubmit(name)
   }
 
 // error message for missing selection
-function selectionError()
-  {alert("Must select something!")}
+function selectionError() {
+  alert("Must select something!");
+}
 
 /* ]]> */
 </script>

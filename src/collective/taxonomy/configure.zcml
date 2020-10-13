@@ -147,5 +147,6 @@
 
   <include file="widget.zcml" />
   <include file="upgradesteps.zcml" />
+  <include file="restapi.zcml" />
 
 </configure>

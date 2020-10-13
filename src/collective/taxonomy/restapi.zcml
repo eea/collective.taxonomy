@@ -1,0 +1,25 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+  >
+
+  <adapter factory=".restapi.TaxonomySerializer" />
+  <adapter for="collective.taxonomy.utility.Taxonomy *" factory=".restapi.TaxonomySerializer" />
+
+  <plone:service
+    method="GET"
+    for="*"
+    factory=".restapi.TaxonomyGet"
+    name="@taxonomy-data"
+    permission="cmf.ManagePortal"
+    />
+
+  <plone:service
+    method="POST"
+    for="*"
+    factory=".restapi.TaxonomyPost"
+    name="@taxonomy-data"
+    permission="cmf.ManagePortal"
+    />
+
+</configure>

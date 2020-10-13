@@ -10,7 +10,7 @@
     method="GET"
     for="*"
     factory=".restapi.TaxonomyGet"
-    name="@taxonomy-data"
+    name="@taxonomy"
     permission="cmf.ManagePortal"
     />
 
@@ -18,7 +18,7 @@
     method="POST"
     for="*"
     factory=".restapi.TaxonomyPost"
-    name="@taxonomy-data"
+    name="@taxonomy"
     permission="cmf.ManagePortal"
     />
 

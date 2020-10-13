@@ -1,5 +1,5 @@
-import json
-
+from BTrees.OOBTree import OOBTree
+from collective.taxonomy import PATH_SEPARATOR
 from collective.taxonomy.interfaces import ITaxonomy
 from zope.component import (adapter, getMultiAdapter, getUtilitiesFor,
                             queryUtility)
@@ -54,7 +54,11 @@ class TaxonomySerializer(object):
             for (lang, langdata) in util.data.items():
                 # keys = [langdata.keys()[x] for x in order]
                 results['data'][lang] = [
-                    {'title': k, 'token': langdata[k]} for k in langdata.keys()
+                    {
+                        # TODO: do subpaths
+                        'title': k.replace(PATH_SEPARATOR, ''),
+                        'token': langdata[k]
+                    } for k in langdata.keys()
                 ]
                 order = util.order[lang]
                 results['order'][lang] = list(order)
@@ -99,19 +103,54 @@ class TaxonomyGet(Service):
         return serializer(full_objects=True)
 
 
-class TaxonomyPost(Service):
+@implementer(IPublishTraverse)
+class TaxonomyPatch(Service):
     """ Returns the querystring search results given a p.a.querystring data.
     """
 
+    taxonomy_id = None
+
+    def publishTraverse(self, request, name):  # noqa
+        if name:
+            self.taxonomy_id = name
+
+        return self
+
     def reply(self):
+        if not self.taxonomy_id:
+            raise Exception("No taxonomy name provided")
+
         data = json_body(self.request)
 
         name = data.get('name')
 
         if name is None:
-            raise Exception("No index name provided")
+            raise Exception("No taxonomy name provided")
 
-        catalog = portal.get_tool(name='portal_catalog')
-        values = list(catalog.uniqueValuesFor(name))
+        taxonomy = queryUtility(ITaxonomy, name=name)
+        if taxonomy is None:
+            raise Exception("No taxonomy found for this name: {}".format(name))
 
-        return sorted(values)
+        for language in data['data'].keys():
+            tree = data["data"][language]
+            order = data['order'][language]
+            if language not in taxonomy.data:
+                taxonomy.data[language] = OOBTree()
+
+            data_for_taxonomy = []
+            for i in order:
+                item = tree[i]
+                data_for_taxonomy.append(["{}{}".format(
+                    PATH_SEPARATOR, item['title'],
+                ), item['token']])
+
+            taxonomy.update(language, data_for_taxonomy, True)
+
+        serializer = getMultiAdapter((taxonomy, self.request),
+                                     ISerializeToJson)
+        res = serializer(full_objects=True)
+
+        # from pprint import pprint
+        # pprint(res)
+
+        return res

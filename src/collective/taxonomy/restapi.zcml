@@ -15,10 +15,10 @@
     />
 
   <plone:service
-    method="POST"
-    for="*"
-    factory=".restapi.TaxonomyPost"
     name="@taxonomy"
+    method="PATCH"
+    for="*"
+    factory=".restapi.TaxonomyPatch"
     permission="cmf.ManagePortal"
     />
 

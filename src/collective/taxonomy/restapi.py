@@ -7,24 +7,20 @@ from zope.interface import Interface, implementer
 from zope.publisher.interfaces import IPublishTraverse
 
 from plone.api import portal
+from plone.restapi.controlpanels.interfaces import IControlpanel
 from plone.restapi.deserializer import json_body
 from plone.restapi.interfaces import ISerializeToJson
 from plone.restapi.services import Service
 
-from .jsonimpl import EditTaxonomyData
 
-
-"""
-{'count': {'en': 5},
- 'data': {'en': <BTrees.OOBTree.OOBTree object at 0x7f541bd6c680 oid 0x36bb in
- <Connection at 7f541b9eff50>>},
-  'default_language': 'en',
-   'name': 'collective.taxonomy.nuts_code',
-    'order': {'en': <BTrees.IOBTree.IOBTree object at 0x7f54219ae200 oid 0x36bc
-    in <Connection at 7f541b9eff50>>},
-     'title': 'NUTS Codes',
-      'version': {'en': 2}}
-"""
+@implementer(IControlpanel)
+class TaxonomyControlPanel(object):
+    schema = Interface
+    configlet_id = "taxonomy"
+    configlet_category_id = "plone-content"
+    title = "Taxonomy settings"
+    group = ""
+    schema = Interface
 
 
 @implementer(ISerializeToJson)
@@ -105,7 +101,7 @@ class TaxonomyGet(Service):
 
 @implementer(IPublishTraverse)
 class TaxonomyPatch(Service):
-    """ Returns the querystring search results given a p.a.querystring data.
+    """ Patch a taxonomy
     """
 
     taxonomy_id = None

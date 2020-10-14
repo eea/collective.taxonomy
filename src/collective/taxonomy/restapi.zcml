@@ -22,4 +22,9 @@
     permission="cmf.ManagePortal"
     />
 
+  <!-- <adapter -->
+  <!--   factory=".restapi.TaxonomyControlPanel" -->
+  <!--   provides="plone.restapi.controlpanels.interfaces.IDexterityTypesControlpanel" -->
+  <!--   name="taxonomy" /> -->
+
 </configure>
